@@ -12,31 +12,10 @@ typedef struct {
 int maxNumeral(numeral *nu, int num);
 void decimalToRoman(numeral *nu, int num);
 
-
-int maxNumeral(numeral *nu, int num){
-   int i, index = 0;
-   for (i = 0; i < 15; i++) { //15 numerals in array
-      if (nu[i].val <= num)
-         index = i;
-   }
-   //gretest value numeral index, not greater than number
-   return index;
-}
-
-void decimalToRoman(numeral *nu, int num){
-   int max;
-   if (num != 0) {
-      max = maxNumeral(nu, num);
-      printf("%s", nu[max].sym);
-      num -= nu[max].val; //decrease number
-      decimalToRoman(nu, num); //recursively print numerals
-   }
-}
-
 int main() {
    int number;
    numeral letter[15] = {{"I",1},{"IV",4},{"V",5},{"IX",9}, {"X",10},{"XL",40},{"L",50},{"XC",90},
-                      {"C",100},{"CD",400},{"D",500},{"CM",900},{"M",1000},{"MMMM",4000},{"V'",5000}};
+                      {"C",100},{"CD",400},{"D",500},{"CM",900},{"M",1000},{"MMMM",4000}};
     
    printf("Enter a decimal number: ");
    scanf("%d", &number);
@@ -51,4 +30,24 @@ int main() {
       printf("\n");
 
     return 0;
+}
+
+void decimalToRoman(numeral *nu, int num){
+   int max;
+   if (num != 0) {
+      max = maxNumeral(nu, num);
+      printf("%s", nu[max].sym);
+      num -= nu[max].val; //decrease number
+      decimalToRoman(nu, num); //recursively print numerals
+   }
+}
+
+int maxNumeral(numeral *nu, int num){
+   int i, index = 0;
+   for (i = 0; i < 15; i++) { //15 numerals in array
+      if (nu[i].val <= num)
+         index = i;
+   }
+   //gretest value numeral index, not greater than number
+   return index;
 }
